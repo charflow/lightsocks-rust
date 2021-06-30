@@ -1,0 +1,17 @@
+[package]
+name = "lightsocks-rust"
+version = "0.1.0"
+authors = ["weaming <garden.yuen@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[[bin]]
+name = "lightsocks-server"
+path = "src/server/bin/main.rs"
+
+[[bin]]
+name = "lightsocks-client"
+path = "src/client/bin/main.rs"
