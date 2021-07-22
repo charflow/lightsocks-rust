@@ -1,4 +1,5 @@
 use std::fs;
+use std::io::prelude::*;
 use std::path::Path;
 
 use serde;
@@ -37,8 +38,8 @@ pub fn dump_config(path: &str, cfg: &Config) -> Result<(), Error> {
 
 pub fn dump_default_config(path: &str) -> Result<(), Error> {
     let path = shellexpand::full(path).unwrap().as_ref().to_string();
-    let file = fs::File::create(path).expect("open config failed");
-    let _ = serde_json::to_writer(file,v);
+    let mut file = fs::File::create(path).expect("open config failed");
+    file.write_all(CONFIG_DEFAULT.as_bytes()).expect("write write failed");
     Ok(())
 }
 

@@ -8,6 +8,6 @@ fn main() {
         let _ = dump_default_config(CONFIG_DEFAULT_PATH);
         println!("{} does not exist, generated.", CONFIG_DEFAULT_PATH);
     }
-    let cfg = load_config("~/.lightsocks.json");
+    let cfg = load_config(CONFIG_DEFAULT_PATH);
     println!("config: {}", serde_json::to_string_pretty(&cfg).unwrap());
 }
