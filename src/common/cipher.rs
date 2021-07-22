@@ -1,8 +1,8 @@
 use chacha20poly1305::aead::{Aead, NewAead};
 use chacha20poly1305::{ChaCha20Poly1305, Key, Nonce};
-use chacha20poly1305::aead::generic_array::GenericArray;
 
 pub struct Chacha20Poly1305Wrapper {
+    #[allow(dead_code)]
     password: String,
     cipher: ChaCha20Poly1305,
 }

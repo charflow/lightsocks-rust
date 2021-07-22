@@ -1,19 +1,17 @@
 use std::fs;
-use std::io::Write;
 use std::path::Path;
 
-#[macro_use]
 use serde;
 use serde_json;
 use shellexpand;
 
 use super::Error;
 
-pub static CONFIG_DEFAULT_PATH: &'static str = "~/.lightsocks.json";
-static CONFIG_DEFAULT: &'static str = r#"{
-"listen": ":7448",
-"remote": "",
-"password": ""
+pub static CONFIG_DEFAULT_PATH: &str = "~/.lightsocks.json";
+static CONFIG_DEFAULT: &str = r#"{
+    "listen": ":7448",
+    "remote": "",
+    "password": ""
 }"#;
 
 #[derive(Default, Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -32,15 +30,15 @@ pub fn load_config(path: &str) -> Config {
 
 pub fn dump_config(path: &str, cfg: &Config) -> Result<(), Error> {
     let path = shellexpand::full(path).unwrap().as_ref().to_string();
-    let mut file = fs::File::create(path).expect("open config failed");
-    serde_json::to_writer_pretty(file, cfg);
+    let file = fs::File::create(path).expect("open config failed");
+    let _ = serde_json::to_writer_pretty(file, cfg);
     Ok(())
 }
 
 pub fn dump_default_config(path: &str) -> Result<(), Error> {
     let path = shellexpand::full(path).unwrap().as_ref().to_string();
-    let mut file = fs::File::create(path).expect("open config failed");
-    serde_json::to_writer(file, CONFIG_DEFAULT);
+    let file = fs::File::create(path).expect("open config failed");
+    let _ = serde_json::to_writer(file,v);
     Ok(())
 }
 
