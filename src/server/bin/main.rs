@@ -1,3 +1,4 @@
+#![deny(unused_imports)]
 use common::*;
 use serde_json;
 
