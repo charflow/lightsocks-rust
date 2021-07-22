@@ -1,3 +1,5 @@
+use common::VERSION;
+
 fn main(){
-    println!("hello, light socks!")
+    println!("client for lightsocks! version is {}", VERSION)
 }

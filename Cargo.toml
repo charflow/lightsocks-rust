@@ -7,6 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+bytes = "1.0.1" # https://docs.rs/bytes/1.0.1/bytes/index.html
 
 [[bin]]
 name = "lightsocks-server"
@@ -15,3 +16,7 @@ path = "src/server/bin/main.rs"
 [[bin]]
 name = "lightsocks-client"
 path = "src/client/bin/main.rs"
+
+[lib]
+name = "common"
+path = "src/common/lib.rs"
