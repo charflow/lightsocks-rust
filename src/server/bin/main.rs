@@ -1,5 +1,13 @@
-use common::VERSION;
+use common::*;
+use serde_json;
 
-fn main(){
-    println!("server for lightsocks! version is {}", VERSION)
+fn main() {
+    println!("server for lightsocks: version {}", VERSION);
+    if !exist_file(CONFIG_DEFAULT_PATH) {
+        dump_default_config(CONFIG_DEFAULT_PATH);
+        println!("{} does not exist, generated.", CONFIG_DEFAULT_PATH);
+    }
+    let cfg = load_config("~/.lightsocks.json");
+    println!("config: {}", serde_json::to_string_pretty(&cfg).unwrap());
+    dump_config("server.json", &cfg);
 }
