@@ -8,4 +8,5 @@ pub use config::*;
 pub use traits::*;
 
 pub static VERSION: &'static str = "0.0.1";
-pub type TODO = i32;
+pub type TODO = u8;
+pub type Bytes = [u8];

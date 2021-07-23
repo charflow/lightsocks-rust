@@ -1,14 +1,14 @@
-use bytes::Bytes;
+use super::Bytes;
 use std::fmt;
 
 pub trait Cipher {
-    fn encode(input: &Bytes) -> Bytes;
-    fn decode(input: &Bytes) -> Bytes;
+    fn encrypt(&self, input: &Bytes) -> Vec<u8>;
+    fn decrypt(&self, input: &Bytes) -> Vec<u8>;
 }
 
 pub trait SecureSocket {
     fn encode_write(&mut self, bs: &Bytes) -> Result<(), Error>;
-    fn decode_read(&self) -> Bytes;
+    fn decode_read(&self) -> Vec<u8>;
 }
 
 #[derive(Debug, Clone)]

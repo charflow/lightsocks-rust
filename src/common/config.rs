@@ -1,7 +1,7 @@
+use std::env;
 use std::fs;
 use std::io::prelude::*;
 use std::path::Path;
-use std::env;
 
 use serde;
 use serde_json;
@@ -32,7 +32,10 @@ fn load_config_by_path(path: &str) -> Config {
 }
 
 fn dump_default_config() -> Result<(), Error> {
-    let path = shellexpand::full(CONFIG_DEFAULT).unwrap().as_ref().to_string();
+    let path = shellexpand::full(CONFIG_DEFAULT)
+        .unwrap()
+        .as_ref()
+        .to_string();
     let mut file = fs::File::create(path).expect("open config failed");
     file.write_all(CONFIG_DEFAULT.as_bytes())
         .expect("write config failed");
@@ -53,7 +56,7 @@ pub fn load_config() -> Result<Config, Error> {
                 dump_default_config().unwrap();
             }
             CONFIG_DEFAULT_PATH.to_string()
-        },
+        }
     };
 
     Ok(load_config_by_path(&f))

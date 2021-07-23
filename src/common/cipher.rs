@@ -1,3 +1,5 @@
+use super::traits::Cipher;
+use super::Bytes;
 use chacha20poly1305::aead::{Aead, NewAead};
 use chacha20poly1305::{ChaCha20Poly1305, Key, Nonce};
 
@@ -35,15 +37,21 @@ impl Chacha20Poly1305Wrapper {
     }
 }
 
+const NONCE: u64 = 1314;
+impl Cipher for Chacha20Poly1305Wrapper {
+    fn encrypt(&self, input: &Bytes) -> Vec<u8> {
+        self.encrypt(NONCE, input)
+    }
+
+    fn decrypt(&self, input: &Bytes) -> Vec<u8> {
+        self.decrypt(NONCE, input)
+    }
+}
+
 pub fn md5(content: String) -> String {
     let digest = md5::compute(content.as_bytes());
     format!("{:x}", digest)
 }
-
-// pub fn nonce_from_int<U12>(nonce: u64) -> GenericArray<u8, U12> {
-//     let padded_nonce = format!("{:0>12}", nonce);
-//     Nonce::from_slice(padded_nonce.as_bytes())
-// }
 
 #[cfg(test)]
 mod tests {
