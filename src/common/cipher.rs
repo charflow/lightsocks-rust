@@ -12,19 +12,26 @@ impl Chacha20Poly1305Wrapper {
         let md5digest = md5(password.to_string());
         let key = Key::from_slice(md5digest.as_bytes());
         let cipher = ChaCha20Poly1305::new(key);
-        Chacha20Poly1305Wrapper{password: password.to_owned(), cipher}
+        Chacha20Poly1305Wrapper {
+            password: password.to_owned(),
+            cipher,
+        }
     }
 
     pub fn encrypt(&self, nonce: u64, plaintext: &[u8]) -> Vec<u8> {
         let padded_nonce = format!("{:0>12}", nonce % 1_000_000_000_000); // 保证不超过12位
         let nonce = Nonce::from_slice(padded_nonce.as_bytes());
-        self.cipher.encrypt(nonce, plaintext).expect("encryption failure!")
+        self.cipher
+            .encrypt(nonce, plaintext)
+            .expect("encryption failure!")
     }
 
     pub fn decrypt(&self, nonce: u64, ciphertext: &[u8]) -> Vec<u8> {
         let padded_nonce = format!("{:0>12}", nonce % 1_000_000_000_000); // 保证不超过12位
         let nonce = Nonce::from_slice(padded_nonce.as_bytes());
-        self.cipher.decrypt(nonce, ciphertext).expect("decryption failure!")
+        self.cipher
+            .decrypt(nonce, ciphertext)
+            .expect("decryption failure!")
     }
 }
 
