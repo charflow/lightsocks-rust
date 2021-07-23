@@ -5,7 +5,7 @@ use serde_json;
 fn main() {
     println!("server for lightsocks: version {}", VERSION);
     if !exist_file(CONFIG_DEFAULT_PATH) {
-        let _ = dump_default_config(CONFIG_DEFAULT_PATH);
+        dump_default_config(CONFIG_DEFAULT_PATH).unwrap();
         println!("{} does not exist, generated.", CONFIG_DEFAULT_PATH);
     }
     let cfg = load_config(CONFIG_DEFAULT_PATH);
