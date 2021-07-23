@@ -12,8 +12,11 @@ serde_json = "1.0.64"
 shellexpand = "2.1.0"
 chacha20poly1305 = "0.8.1" # https://docs.rs/chacha20poly1305/0.8.1/chacha20poly1305/ Rust 1.49 or higher.
 md5 = "0.7.0"
-tokio = { version = "1.9", features = ["full"] }
-tokio-socks = "0.5.1"
+
+#socks5-proxy = { git = "https://github.com/charflow/socks5-proxy.git" }
+socks5-proxy = { path = "../socks5-proxy" }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1.0"
 
 [[bin]]
 name = "lightsocks-server"
