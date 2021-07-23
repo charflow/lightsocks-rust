@@ -7,14 +7,12 @@ use serde;
 use serde_json;
 use shellexpand;
 
-use super::Error;
-
 static CONFIG_DEFAULT_PATH: &str = "~/.lightsocks.json";
 const CONFIG_ENV_KEY: &str = "LIGHT_SOCKS_CONFIG";
 static CONFIG_DEFAULT: &str = r#"{
     "listen": ":7448",
     "remote": "",
-    "password": ""
+    "password": "1234"
 }"#;
 
 #[derive(Default, Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -31,7 +29,7 @@ fn load_config_by_path(path: &str) -> Config {
     serde_json::from_reader(file).expect("parse config failed")
 }
 
-fn dump_default_config() -> Result<(), Error> {
+fn dump_default_config() -> Result<(), std::io::Error> {
     let path = shellexpand::full(CONFIG_DEFAULT)
         .unwrap()
         .as_ref()
@@ -48,7 +46,7 @@ fn exist_file(path: &str) -> bool {
     path.is_file()
 }
 
-pub fn load_config() -> Result<Config, Error> {
+pub fn load_config() -> Result<Config, std::io::Error> {
     let f = match env::var(CONFIG_ENV_KEY) {
         Ok(v) => v,
         Err(_) => {

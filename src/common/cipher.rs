@@ -21,7 +21,7 @@ impl Chacha20Poly1305Wrapper {
     }
 
     pub fn encrypt(&self, nonce: u64, plaintext: &[u8]) -> Vec<u8> {
-        let padded_nonce = format!("{:0>12}", nonce % 1_000_000_000_000); // 保证不超过12位
+        let padded_nonce = format!("{:0>12}", nonce % 1_000_000_000_000); // 取余保证不超过12位
         let nonce = Nonce::from_slice(padded_nonce.as_bytes());
         self.cipher
             .encrypt(nonce, plaintext)
@@ -29,7 +29,7 @@ impl Chacha20Poly1305Wrapper {
     }
 
     pub fn decrypt(&self, nonce: u64, ciphertext: &[u8]) -> Vec<u8> {
-        let padded_nonce = format!("{:0>12}", nonce % 1_000_000_000_000); // 保证不超过12位
+        let padded_nonce = format!("{:0>12}", nonce % 1_000_000_000_000); // 取余保证不超过12位
         let nonce = Nonce::from_slice(padded_nonce.as_bytes());
         self.cipher
             .decrypt(nonce, ciphertext)
@@ -63,6 +63,7 @@ mod tests {
         let text = b"plaintext message";
         let ciphertext = cipher.encrypt(666, text);
         let plaintext = cipher.decrypt(666, &ciphertext);
+        assert_eq!(plaintext.len(), text.len());
         assert_eq!(&plaintext, text);
     }
 }

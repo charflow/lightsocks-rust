@@ -17,6 +17,8 @@ md5 = "0.7.0"
 socks5-proxy = { path = "../socks5-proxy" }
 tokio = { version = "1", features = ["full"] }
 anyhow = "1.0"
+tokio-socks = "0.5.1"
+
 
 [[bin]]
 name = "lightsocks-server"
